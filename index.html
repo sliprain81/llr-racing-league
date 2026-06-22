@@ -486,6 +486,14 @@ body::after{
 </div>
 </section>
 
+    <section class="section">
+<h2 class="section-title">Live Driver Leaderboard</h2>
+
+<div class="results">
+    <div id="leaderboard"></div>
+</div>
+</section>
+
 <section id="join" class="discord">
 <h2>Ready To Race?</h2>
 <p>Join our Discord and become part of the grid.</p>
@@ -496,5 +504,91 @@ body::after{
 © 2026 Lag & Legends Racing • Assetto Corsa Community
 </footer>
 
+    <script>
+const results = [
+    // Format: name, position
+    { name:"Mr. God", pos:1 },
+    { name:"Thalenson", pos:2 },
+    { name:"Sliprain", pos:1 },
+    { name:"Syzill", pos:4 },
+
+    { name:"Sliprain", pos:1 },
+    { name:"Stewart Vickers", pos:2 },
+    { name:"BLU先生", pos:3 },
+    { name:"Milfy", pos:4 },
+    { name:"karlhygum", pos:5 },
+
+    { name:"Sliprain", pos:1 },
+    { name:"Waiz", pos:2 },
+    { name:"Shane", pos:3 },
+    { name:"gianhowdy", pos:4 },
+    { name:"Nussy", pos:5 },
+
+    { name:"Sliprain", pos:1 },
+
+    { name:"Sliprain", pos:1 },
+    { name:"SheWasOnly11", pos:2 },
+    { name:"Sebubba", pos:3 },
+    { name:"JoFo04", pos:4 },
+    { name:"Fazzdog", pos:5 },
+
+    { name:"Uncle Glock", pos:1 },
+    { name:"Shane", pos:2 },
+    { name:"okajima", pos:3 },
+    { name:"Alex Yablonsky", pos:4 },
+    { name:"Sliprain", pos:5 },
+
+    { name:"Dominic6767", pos:1 },
+    { name:"Sliprain", pos:2 }
+];
+
+// Simple points system (F1 style-ish)
+function getPoints(pos){
+    switch(pos){
+        case 1: return 25;
+        case 2: return 18;
+        case 3: return 15;
+        case 4: return 12;
+        case 5: return 10;
+        case 6: return 8;
+        case 7: return 6;
+        case 8: return 4;
+        case 9: return 2;
+        case 10: return 1;
+        default: return 0;
+    }
+}
+
+// Build standings
+const table = {};
+
+results.forEach(r => {
+    if(!table[r.name]){
+        table[r.name] = { points:0, wins:0, races:0 };
+    }
+
+    table[r.name].points += getPoints(r.pos);
+    table[r.name].races++;
+
+    if(r.pos === 1) table[r.name].wins++;
+});
+
+// Convert to array
+const leaderboard = Object.keys(table).map(name => ({
+    name,
+    ...table[name]
+}));
+
+// Sort by points
+leaderboard.sort((a,b) => b.points - a.points);
+
+document.getElementById("leaderboard").innerHTML =
+    leaderboard.map((d,i) => `
+        <div class="event">
+            <h3>${i+1}. ${d.name}</h3>
+            <small>Points: ${d.points} | Wins: ${d.wins} | Races: ${d.races}</small>
+        </div>
+    `).join("");
+</script>
 </body>
 </html>
