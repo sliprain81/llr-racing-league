@@ -1,502 +1,211 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>Lag & Legends Racing</title>
-
-<link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@500;700;900&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Lag & Legends | Results</title>
 
 <style>
-
-:root{
-    --red:#ff2b2b;
-    --red-glow:#ff4d4d;
-    --bg:#050505;
-    --panel:#111111;
-    --panel-hover:#181818;
-    --text:#ffffff;
-    --muted:#b5b5b5;
-}
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-}
-
-html{
-    scroll-behavior:smooth;
-}
-
-body{
-    font-family:'Inter',sans-serif;
-    background:var(--bg);
-    color:white;
-    overflow-x:hidden;
-}
-
-body::before{
-    content:"";
-    position:fixed;
-    inset:0;
-    background:
-    linear-gradient(rgba(0,0,0,.65),rgba(0,0,0,.92)),
-    url("https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=2200&q=80");
-    background-size:cover;
-    background-position:center;
-    z-index:-2;
-}
-
-body::after{
-    content:"";
-    position:fixed;
-    inset:0;
-    background:
-    linear-gradient(
-        90deg,
-        transparent,
-        rgba(255,255,255,.015),
-        transparent
-    );
-    z-index:-1;
-}
-
-.navbar{
-    position:sticky;
-    top:0;
-    z-index:999;
-    backdrop-filter:blur(16px);
-    background:rgba(0,0,0,.65);
-    border-bottom:1px solid rgba(255,255,255,.08);
-}
-
-.nav-inner{
-    max-width:1300px;
-    margin:auto;
-    padding:18px 25px;
-    display:flex;
-    justify-content:space-between;
-    align-items:center;
-}
-
-.brand{
-    font-family:'Orbitron';
-    font-weight:900;
-    letter-spacing:2px;
-}
-
-.nav-links{
-    display:flex;
-    gap:25px;
-}
-
-.nav-links a{
-    text-decoration:none;
-    color:white;
-    transition:.3s;
-}
-
-.nav-links a:hover{
-    color:var(--red);
-}
-
-.hero{
-    min-height:70vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    padding:40px 20px;
-}
-
-.hero-content{
-    max-width:900px;
-    animation:fadeUp 1s ease;
-}
-
-.hero h1{
-    font-family:'Orbitron';
-    font-size:clamp(3rem,8vw,6rem);
-    line-height:1;
-    margin-bottom:15px;
-}
-
-.hero h1 span{
-    color:var(--red);
-}
-
-.hero p{
-    color:var(--muted);
-    font-size:1.2rem;
-    margin-bottom:35px;
-}
-
-.button-group{
-    display:flex;
-    justify-content:center;
-    gap:15px;
-    flex-wrap:wrap;
-}
-
-.btn{
-    text-decoration:none;
-    padding:15px 30px;
-    border-radius:12px;
-    font-weight:600;
-    transition:.3s;
-}
-
-.btn-primary{
-    background:var(--red);
-    color:white;
-}
-
-.btn-primary:hover{
-    transform:translateY(-3px);
-    box-shadow:0 0 25px rgba(255,43,43,.6);
-}
-
-.btn-secondary{
-    border:1px solid rgba(255,255,255,.25);
-    color:white;
-}
-
-.btn-secondary:hover{
-    background:white;
-    color:black;
-}
-
-.section{
-    max-width:1300px;
-    margin:auto;
-    padding:80px 20px;
-}
-
-.section-title{
-    text-align:center;
-    font-family:'Orbitron';
-    font-size:2.3rem;
-    margin-bottom:50px;
-}
-
-.featured{
-    background:rgba(255,43,43,.08);
-    border:1px solid rgba(255,43,43,.35);
-    border-radius:22px;
-    padding:50px;
-    text-align:center;
-    box-shadow:0 0 40px rgba(255,43,43,.15);
-}
-
-.featured-label{
-    color:var(--red);
-    font-weight:700;
-    margin-bottom:10px;
-    letter-spacing:2px;
-}
-
-.featured h2{
-    font-family:'Orbitron';
-    margin-bottom:20px;
-}
-
-.featured p{
-    max-width:700px;
-    margin:auto;
-    color:var(--muted);
-    line-height:1.8;
-}
-
-.grid{
-    display:grid;
-    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-    gap:30px;
-}
-
-.card{
-    background:rgba(17,17,17,.95);
-    border:1px solid rgba(255,255,255,.08);
-    border-radius:20px;
-    padding:35px;
-    transition:.35s;
-}
-
-.card:hover{
-    transform:translateY(-8px);
-    border-color:var(--red);
-    box-shadow:0 0 35px rgba(255,43,43,.25);
-}
-
-.card h3{
-    font-family:'Orbitron';
-    margin-bottom:15px;
-}
-
-.card p{
-    color:var(--muted);
-    line-height:1.8;
-}
-
-.discord{
-    text-align:center;
-    padding:100px 20px;
-}
-
-.discord h2{
-    font-family:'Orbitron';
-    font-size:2.5rem;
-    margin-bottom:20px;
-}
-
-.discord p{
-    color:var(--muted);
-    max-width:700px;
-    margin:auto auto 35px;
-    line-height:1.8;
-}
-
-.footer{
-    text-align:center;
-    padding:35px;
-    border-top:1px solid rgba(255,255,255,.08);
-    color:#888;
-}
-
-@keyframes fadeUp{
-    from{
-        opacity:0;
-        transform:translateY(20px);
+    body {
+        margin: 0;
+        font-family: Arial, Helvetica, sans-serif;
+        background: #0b0f14;
+        color: #e6e6e6;
     }
-    to{
-        opacity:1;
-        transform:translateY(0);
+
+    header {
+        background: linear-gradient(90deg, #0f1722, #111c2b);
+        padding: 30px;
+        text-align: center;
+        border-bottom: 2px solid #1f2a3a;
     }
-}
 
-@media(max-width:768px){
+    header h1 {
+        margin: 0;
+        font-size: 28px;
+        letter-spacing: 2px;
+    }
 
-.nav-links{
-    display:none;
-}
+    header p {
+        color: #8aa0b6;
+        margin-top: 8px;
+    }
 
-.hero{
-    min-height:60vh;
-}
+    .container {
+        max-width: 1100px;
+        margin: auto;
+        padding: 20px;
+    }
 
-.featured{
-    padding:35px 25px;
-}
+    .week-card {
+        background: #121a26;
+        border: 1px solid #1f2a3a;
+        border-radius: 10px;
+        padding: 20px;
+        margin-bottom: 25px;
+        box-shadow: 0 0 20px rgba(0,0,0,0.3);
+    }
 
-}
+    .week-title {
+        font-size: 20px;
+        color: #4db5ff;
+        margin-bottom: 10px;
+    }
 
+    .stats {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+        gap: 10px;
+        margin-bottom: 20px;
+    }
+
+    .stat {
+        background: #0e141d;
+        padding: 10px;
+        border-radius: 8px;
+        text-align: center;
+        border: 1px solid #1b2636;
+    }
+
+    .stat b {
+        display: block;
+        font-size: 14px;
+        color: #7fb3ff;
+    }
+
+    .event {
+        margin-bottom: 18px;
+        padding: 12px;
+        background: #0e141d;
+        border-radius: 8px;
+        border-left: 3px solid #4db5ff;
+    }
+
+    .event h3 {
+        margin: 0 0 5px 0;
+        font-size: 16px;
+        color: #ffffff;
+    }
+
+    .event small {
+        color: #8aa0b6;
+    }
+
+    .result {
+        font-family: monospace;
+        padding: 2px 0;
+        color: #d6e4ff;
+    }
+
+    footer {
+        text-align: center;
+        padding: 30px;
+        color: #5c6f86;
+        font-size: 12px;
+    }
 </style>
 </head>
+
 <body>
 
-<nav class="navbar">
-    <div class="nav-inner">
+<header>
+    <h1>Lag & Legends</h1>
+    <p>Weekly Race Results & Practice Recaps</p>
+</header>
 
-        <div class="brand">
-            LAG & LEGENDS
+<div class="container">
+
+    <!-- ================= WEEK BLOCK ================= -->
+    <div class="week-card">
+
+        <div class="week-title">
+            Practice Week Recap | 15–21 June 2026
         </div>
-
-        <div class="nav-links">
-            <a href="#championship">Championship</a>
-            <a href="#servers">Servers</a>
-            <a href="#join">Join Us</a>
-        </div>
-
-    </div>
-</nav>
-
-<section class="hero">
-
-    <div class="hero-content">
-
-        <h1>
-            LAG & <span>LEGENDS</span>
-        </h1>
 
         <p>
-            Assetto Corsa Community<br>
-            Daily Hotlaps • Open-Wheel Racing • League Championships
+            Results are grouped by event day/track. The extra Silverstone National combined file has been included with the 15 June Silverstone results.
         </p>
 
-        <div class="button-group">
+        <div class="stats">
+            <div class="stat"><b>Days Run</b>7</div>
+            <div class="stat"><b>Drivers</b>38</div>
+            <div class="stat"><b>Total Laps</b>690</div>
+            <div class="stat"><b>Clean Laps</b>502 (72.8%)</div>
+            <div class="stat"><b>Track Cuts</b>314</div>
+            <div class="stat"><b>Incidents</b>386</div>
+        </div>
 
-            <a href="https://discord.gg/GXTbZbdAcs"
-               target="_blank"
-               class="btn btn-primary">
-               Join Discord
-            </a>
+        <!-- EVENT -->
+        <div class="event">
+            <h3>15 June 2026 | Silverstone National</h3>
+            <small>Laps: 68 | Clean: 53 | Drivers: 4</small>
+            <div class="result">1. Mr. God - 0:55.176</div>
+            <div class="result">2. Thalenson - 0:56.446</div>
+            <div class="result">3. Sliprain - 0:56.625</div>
+            <div class="result">4. Syzill - 1:29.474</div>
+        </div>
 
-            <a href="#servers"
-               class="btn btn-secondary">
-               View Servers
-            </a>
+        <div class="event">
+            <h3>16 June 2026 | Brands Hatch Indy</h3>
+            <small>Laps: 18 | Clean: 16 | Drivers: 5</small>
+            <div class="result">1. Sliprain - 0:46.192</div>
+            <div class="result">2. Stewart Vickers - 0:47.305</div>
+            <div class="result">3. BLU先生 - 0:48.296</div>
+            <div class="result">4. Milfy - 0:56.371</div>
+            <div class="result">5. karlhygum - 1:03.460</div>
+        </div>
 
+        <div class="event">
+            <h3>17 June 2026 | Red Bull Ring National</h3>
+            <small>Laps: 125 | Clean: 67 | Drivers: 6</small>
+            <div class="result">1. Sliprain - 0:49.750</div>
+            <div class="result">2. Waiz - 0:49.910</div>
+            <div class="result">3. Shane - 0:51.048</div>
+            <div class="result">4. ☭gianhowdy☭ - 0:51.572</div>
+            <div class="result">5. Nussy - 0:52.010</div>
+        </div>
+
+        <div class="event">
+            <h3>18 June 2026 | Hidden Valley</h3>
+            <small>Laps: 5 | Clean: 4 | Drivers: 1</small>
+            <div class="result">1. Sliprain - 1:07.906</div>
+        </div>
+
+        <div class="event">
+            <h3>19 June 2026 | Monza66 Junior</h3>
+            <small>Laps: 93 | Clean: 64 | Drivers: 9</small>
+            <div class="result">1. Sliprain - 0:50.385</div>
+            <div class="result">2. SheWasOnly11 - 0:50.645</div>
+            <div class="result">3. Sebubba - 0:50.958</div>
+            <div class="result">4. JoFo04 - 0:51.232</div>
+            <div class="result">5. Fazzdog - 0:51.502</div>
+        </div>
+
+        <div class="event">
+            <h3>20 June 2026 | Vallelunga Club</h3>
+            <small>Laps: 377 | Clean: 296 | Drivers: 20</small>
+            <div class="result">1. Uncle Glock - 0:45.053</div>
+            <div class="result">2. Shane - 0:45.888</div>
+            <div class="result">3. okajima - 0:46.105</div>
+            <div class="result">4. Alex Yablonsky - 0:46.213</div>
+            <div class="result">5. Sliprain - 0:46.751</div>
+        </div>
+
+        <div class="event">
+            <h3>21 June 2026 | Nordschleife Touristenfahrten</h3>
+            <small>Laps: 4 | Clean: 2 | Drivers: 3</small>
+            <div class="result">1. Dominic6767 - 6:35.356</div>
+            <div class="result">2. Sliprain - 6:52.190</div>
         </div>
 
     </div>
+    <!-- ================= WEEK BLOCK END ================= -->
 
-</section>
+</div>
 
-<section id="championship" class="section">
-
-    <div class="featured">
-
-        <div class="featured-label">
-            NOW RECRUITING
-        </div>
-
-        <h2>TATUUS FA01 CHAMPIONSHIP</h2>
-
-        <p>
-            We are currently building the grid for our inaugural
-            Tatuus FA01 Championship.
-
-            Whether you're new to open-wheel racing or looking
-            for a friendly community to compete with, now is the
-            perfect time to get involved.
-        </p>
-
-    </div>
-
-</section>
-
-<section class="section">
-
-    <div class="featured">
-
-        <div class="featured-label">
-            CURRENT FOCUS
-        </div>
-
-        <h2>BUILDING THE COMMUNITY</h2>
-
-        <p>
-            Lag & Legends Racing is a brand new Assetto Corsa community.
-            Join us early, help shape future events, suggest championships,
-            and become part of the foundation of the league.
-        </p>
-
-    </div>
-
-</section>
-
-<section id="servers" class="section">
-
-    <h2 class="section-title">Current Servers</h2>
-
-    <div class="grid">
-
-        <div class="card">
-
-            <h3>🏁 Daily FA01 Hotlap Challenge</h3>
-
-            <p>
-                A fresh challenge every day.
-                Jump in, set your fastest lap and see how you compare
-                against the rest of the community.
-            </p>
-
-        </div>
-
-        <div class="card">
-
-            <h3>🚗 MX-5 Cup Racing</h3>
-
-            <p>
-                Currently in development.
-                Join the Discord and help shape future race formats,
-                schedules and track selections.
-            </p>
-
-        </div>
-
-        <div class="card">
-
-            <h3>🏆 FA01 Championship</h3>
-
-            <p>
-                Driver recruitment is open.
-                Designed for beginner and amateur racers who want
-                structured championship competition.
-            </p>
-
-        </div>
-
-    </div>
-
-</section>
-
-<section class="section">
-
-    <h2 class="section-title">Why Join?</h2>
-
-    <div class="grid">
-
-        <div class="card">
-
-            <h3>🏁 Clean Racing</h3>
-
-            <p>
-                Respectful racing and good sportsmanship come first.
-                We want close competition without the drama.
-            </p>
-
-        </div>
-
-        <div class="card">
-
-            <h3>📅 Organised Events</h3>
-
-            <p>
-                Daily hotlaps, community races and future championships
-                designed around consistent participation.
-            </p>
-
-        </div>
-
-        <div class="card">
-
-            <h3>🎙 Community Driven</h3>
-
-            <p>
-                As a new league, your feedback matters.
-                Help decide what comes next and grow with us.
-            </p>
-
-        </div>
-
-    </div>
-
-</section>
-
-<section id="join" class="discord">
-
-    <h2>Ready To Race?</h2>
-
-    <p>
-        Join our Discord, meet other drivers and stay updated on
-        upcoming championships, events and server announcements.
-    </p>
-
-    <a href="https://discord.gg/GXTbZbdAcs"
-       target="_blank"
-       class="btn btn-primary">
-       Join Our Discord
-    </a>
-
-</section>
-
-<footer class="footer">
-    © 2026 Lag & Legends Racing • Assetto Corsa Community
+<footer>
+    Lag & Legends Racing League • Assetto Corsa Community
 </footer>
 
 </body>
 </html>
-```
